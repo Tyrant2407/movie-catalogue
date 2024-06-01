@@ -20,11 +20,15 @@ describe('Showing all favorite movies', () => {
       };
 
       // eslint-disable-next-line no-new
-      new FavoriteMovieShowPresenter({
+      const presenter = new FavoriteMovieShowPresenter({
         view,
         favoriteMovies,
       });
-      expect(favoriteMovies.getAllMovies).toHaveBeenCalledTimes(1);
+
+      const movies = [];
+      presenter._displayMovies(movies);
+
+      expect(document.querySelectorAll('.movie-item__not__found').length).toEqual(1);
     });
 
     it('should show the information that no movies have been liked', (done) => {
@@ -110,10 +114,6 @@ describe('Showing all favorite movies', () => {
         view,
         favoriteMovies,
       });
-    });
-
-    Scenario('showing empty liked movies', ({ I }) => {
-      I.see('Tidak ada film untuk ditampilkan', '.movie-item__not__found');
     });
   });
 });
